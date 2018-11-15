@@ -1,3 +1,9 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [Form1.cs](./CS/TestRTDClient/Form1.cs) (VB: [Form1.vb](./VB/TestRTDClient/Form1.vb))
+* [Class1.cs](./CS/TestRTDServer/Class1.cs) (VB: [Class1.vb](./VB/TestRTDServer/Class1.vb))
+<!-- default file list end -->
 # How to implement real-time data server and use RTD worksheet function
 
 
