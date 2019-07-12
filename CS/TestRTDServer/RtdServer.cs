@@ -21,7 +21,7 @@ namespace TestExcelRTDServer {
 
             m_timer = new Timer();
             m_timer.Tick += new EventHandler(TimerEventHandler);
-            m_timer.Interval = 2000;
+            m_timer.Interval = 500;
 
             m_topics = new Dictionary<int, string>();
 
