@@ -19,7 +19,7 @@ Namespace TestExcelRTDServer
 
             m_timer = New Timer()
             AddHandler m_timer.Tick, AddressOf TimerEventHandler
-            m_timer.Interval = 2000
+            m_timer.Interval = 500
 
             m_topics = New Dictionary(Of Integer, String)()
 
