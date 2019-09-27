@@ -11,8 +11,17 @@ Namespace TestExcelRTDServer
 
         Private m_callback As IRTDUpdateEvent
         Private m_timer As Timer
-        Private m_topics As Dictionary(Of Integer, String)
-        Private Shared random As New Random()
+        Private m_topics As Dictionary(Of Integer, TopicData)
+        Private companies As Dictionary(Of String, CompanyData)
+
+        Public Sub New()
+            Me.companies = New Dictionary(Of String, CompanyData)()
+            Me.companies.Add("MSFT", New CompanyData("MSFT", 40, 176))
+            Me.companies.Add("FB", New CompanyData("FB", 60, 210))
+            Me.companies.Add("YHOO", New CompanyData("YHOO", 36, 54))
+            Me.companies.Add("NOK", New CompanyData("NOK", 50, 100))
+            UpdatePrices()
+        End Sub
 
         Public Function ServerStart(ByVal callback As IRTDUpdateEvent) As Integer Implements IRtdServer.ServerStart
             m_callback = callback
@@ -21,7 +30,7 @@ Namespace TestExcelRTDServer
             AddHandler m_timer.Tick, AddressOf TimerEventHandler
             m_timer.Interval = 500
 
-            m_topics = New Dictionary(Of Integer, String)()
+            m_topics = New Dictionary(Of Integer, TopicData)()
 
             Return 1
         End Function
@@ -34,15 +43,17 @@ Namespace TestExcelRTDServer
         End Sub
 
         Public Function ConnectData(ByVal topicId As Integer, ByRef strings As Array, ByRef newValues As Boolean) As Object Implements IRtdServer.ConnectData
-            If 1 <> strings.Length Then
-                Return "Exactly one parameter is required"
+            If 2 <> strings.Length Then
+                Return "Two parameters are required"
             End If
+            Dim symbol As String = strings.GetValue(0).ToString()
+            Dim type As String = strings.GetValue(1).ToString()
 
-            Dim value As String = strings.GetValue(0).ToString()
+            Dim data As New TopicData(symbol, type)
 
-            m_topics(topicId) = value
+            m_topics(topicId) = data
             m_timer.Start()
-            Return GetNextValue(value)
+            Return GetNextValue(data)
         End Function
 
         Public Sub DisconnectData(ByVal topicId As Integer) Implements IRtdServer.DisconnectData
@@ -73,25 +84,79 @@ Namespace TestExcelRTDServer
 
         Private Sub TimerEventHandler(ByVal sender As Object, ByVal args As EventArgs)
             m_timer.Stop()
+            UpdatePrices()
             m_callback.UpdateNotify()
         End Sub
 
-        Private Shared Function GetNextValue(ByVal value As String) As Double
-            Dim quote As Double
-            Select Case value
-                Case "MSFT"
-                    quote = 40
-                Case "FB"
-                    quote = 60
-                Case "YHOO"
-                    quote = 36
-                Case Else
-                    quote = Double.Parse(value)
-            End Select
-            Return quote + (random.NextDouble() * 10.0 - 5.0)
+        Private Function GetNextValue(ByVal data As TopicData) As Object
+            Dim companyData As CompanyData = Nothing
+            If companies.TryGetValue(data.Symbol, companyData) Then
+                Select Case data.Type
+                    Case "PRICE"
+                        Return companyData.Price
+                    Case "CHANGE"
+                        Return companyData.Change
+                    Case "SHARES"
+                        Return companyData.Shares
+                End Select
+            End If
+            Return "#Invalid"
         End Function
+
+        Private Sub UpdatePrices()
+            For Each companyData As CompanyData In companies.Values
+                companyData.UpdatePrice()
+            Next companyData
+        End Sub
     End Class
 End Namespace
+
+Public Class TopicData
+    Public Sub New(ByVal symbol As String, ByVal type As String)
+        Me.Symbol = symbol
+        Me.Type = type
+    End Sub
+
+    Public ReadOnly Property Symbol() As String
+    Public ReadOnly Property Type() As String
+End Class
+
+Public Class CompanyData
+    Private Shared random As New Random()
+
+    Public Sub New(ByVal symbol As String, ByVal quote As Double, ByVal shares As Integer)
+        Me.Symbol = symbol
+        Me.Quote = quote
+        Me.Shares = shares
+    End Sub
+
+    Private ReadOnly Property Quote() As Double
+    Public ReadOnly Property Symbol() As String
+    Public ReadOnly Property Shares() As Integer
+    Private privatePrice As Double
+    Public Property Price() As Double
+        Get
+            Return privatePrice
+        End Get
+        Private Set(ByVal value As Double)
+            privatePrice = value
+        End Set
+    End Property
+    Private privateChange As Double
+    Public Property Change() As Double
+        Get
+            Return privateChange
+        End Get
+        Private Set(ByVal value As Double)
+            privateChange = value
+        End Set
+    End Property
+
+    Public Sub UpdatePrice()
+        Me.Price = Quote + (random.NextDouble() * 10.0 - 5.0)
+        Me.Change = (Me.Price - Me.Quote) / Me.Quote
+    End Sub
+End Class
 
 Namespace Microsoft.Office.Interop.Excel
     <Guid("A43788C1-D91B-11D3-8F39-00C04F3651B8"), InterfaceType(ComInterfaceType.InterfaceIsDual), ComImport(), TypeIdentifier, ComVisible(True)> _

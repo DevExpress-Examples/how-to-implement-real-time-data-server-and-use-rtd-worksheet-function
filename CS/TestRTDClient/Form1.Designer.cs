@@ -528,7 +528,7 @@
             this.spreadsheetNameBoxControl1 = new DevExpress.XtraSpreadsheet.SpreadsheetNameBoxControl();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
-            this.spreadsheetBarController1 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetBarController();
+            this.spreadsheetBarController1 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetBarController(this.components);
             this.spreadsheetCommandBarButtonItem95 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem96 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem97 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
@@ -764,6 +764,7 @@
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbonControl1.ExpandCollapseItem,
+            this.ribbonControl1.SearchEditItem,
             this.spreadsheetCommandBarButtonItem1,
             this.spreadsheetCommandBarButtonItem2,
             this.spreadsheetCommandBarButtonItem3,
@@ -970,7 +971,7 @@
             this.barbButtonRefreshData,
             this.barButtonRestartServers});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 232;
+            this.ribbonControl1.MaxItemId = 242;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.chartToolsRibbonPageCategory1});
@@ -987,7 +988,7 @@
             this.repositoryItemRadioGroup1,
             this.repositoryItemSpinEdit1});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
-            this.ribbonControl1.Size = new System.Drawing.Size(784, 146);
+            this.ribbonControl1.Size = new System.Drawing.Size(784, 155);
             // 
             // spreadsheetCommandBarButtonItem1
             // 
@@ -1111,10 +1112,10 @@
             // spreadsheetControl1
             // 
             this.spreadsheetControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spreadsheetControl1.Location = new System.Drawing.Point(0, 178);
+            this.spreadsheetControl1.Location = new System.Drawing.Point(0, 191);
             this.spreadsheetControl1.MenuManager = this.ribbonControl1;
             this.spreadsheetControl1.Name = "spreadsheetControl1";
-            this.spreadsheetControl1.Size = new System.Drawing.Size(784, 383);
+            this.spreadsheetControl1.Size = new System.Drawing.Size(784, 370);
             this.spreadsheetControl1.TabIndex = 0;
             this.spreadsheetControl1.Text = "ta";
             // 
@@ -1493,6 +1494,7 @@
             this.repositoryItemPopupGalleryEdit1.Gallery.FixedImageSize = false;
             spreadsheetCommandGalleryItem13.AlwaysUpdateDescription = true;
             spreadsheetCommandGalleryItem13.CaptionAsValue = true;
+            spreadsheetCommandGalleryItem13.Checked = true;
             spreadsheetCommandGalleryItem13.CommandName = "FormatNumberGeneral";
             spreadsheetCommandGalleryItem13.IsEmptyHint = true;
             spreadsheetCommandGalleryItem14.AlwaysUpdateDescription = true;
@@ -3377,7 +3379,7 @@
             this.editingRibbonPageGroup1});
             this.homeRibbonPage1.Name = "homeRibbonPage1";
             reduceOperation1.Behavior = DevExpress.XtraBars.Ribbon.ReduceOperationBehavior.UntilAvailable;
-            reduceOperation1.Group = this.stylesRibbonPageGroup1;
+            reduceOperation1.GroupName = null;
             reduceOperation1.ItemLinkIndex = 2;
             reduceOperation1.ItemLinksCount = 0;
             reduceOperation1.Operation = DevExpress.XtraBars.Ribbon.ReduceOperationType.Gallery;
@@ -3496,39 +3498,39 @@
             this.spreadsheetFormulaBarControl1.Location = new System.Drawing.Point(0, 0);
             this.spreadsheetFormulaBarControl1.MinimumSize = new System.Drawing.Size(0, 20);
             this.spreadsheetFormulaBarControl1.Name = "spreadsheetFormulaBarControl1";
-            this.spreadsheetFormulaBarControl1.Size = new System.Drawing.Size(627, 20);
+            this.spreadsheetFormulaBarControl1.Size = new System.Drawing.Size(627, 24);
             this.spreadsheetFormulaBarControl1.SpreadsheetControl = this.spreadsheetControl1;
             this.spreadsheetFormulaBarControl1.TabIndex = 0;
             // 
             // spreadsheetNameBoxControl1
             // 
-            this.spreadsheetNameBoxControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spreadsheetNameBoxControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.spreadsheetNameBoxControl1.EditValue = "A1";
             this.spreadsheetNameBoxControl1.Location = new System.Drawing.Point(0, 0);
             this.spreadsheetNameBoxControl1.Name = "spreadsheetNameBoxControl1";
+            this.spreadsheetNameBoxControl1.Properties.AutoHeight = false;
             this.spreadsheetNameBoxControl1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spreadsheetNameBoxControl1.ReadOnly = DevExpress.Utils.DefaultBoolean.Default;
-            this.spreadsheetNameBoxControl1.Size = new System.Drawing.Size(145, 20);
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Down)});
+            this.spreadsheetNameBoxControl1.Size = new System.Drawing.Size(145, 24);
             this.spreadsheetNameBoxControl1.SpreadsheetControl = this.spreadsheetControl1;
             this.spreadsheetNameBoxControl1.TabIndex = 0;
             // 
             // splitContainerControl1
             // 
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitContainerControl1.Location = new System.Drawing.Point(0, 146);
-            this.splitContainerControl1.MinimumSize = new System.Drawing.Size(0, 20);
+            this.splitContainerControl1.Location = new System.Drawing.Point(0, 155);
+            this.splitContainerControl1.MinimumSize = new System.Drawing.Size(0, 24);
             this.splitContainerControl1.Name = "splitContainerControl1";
             this.splitContainerControl1.Panel1.Controls.Add(this.spreadsheetNameBoxControl1);
             this.splitContainerControl1.Panel2.Controls.Add(this.spreadsheetFormulaBarControl1);
-            this.splitContainerControl1.Size = new System.Drawing.Size(784, 20);
+            this.splitContainerControl1.Size = new System.Drawing.Size(784, 24);
             this.splitContainerControl1.SplitterPosition = 145;
             this.splitContainerControl1.TabIndex = 2;
             // 
             // splitterControl1
             // 
             this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitterControl1.Location = new System.Drawing.Point(0, 166);
+            this.splitterControl1.Location = new System.Drawing.Point(0, 179);
             this.splitterControl1.MinSize = 20;
             this.splitterControl1.Name = "splitterControl1";
             this.splitterControl1.Size = new System.Drawing.Size(784, 12);
@@ -3737,36 +3739,31 @@
             // spreadsheetCommandBarButtonItem95
             // 
             this.spreadsheetCommandBarButtonItem95.CommandName = "FunctionsInsertSum";
-            this.spreadsheetCommandBarButtonItem95.Id = -1;
             this.spreadsheetCommandBarButtonItem95.Name = "spreadsheetCommandBarButtonItem95";
             // 
             // spreadsheetCommandBarButtonItem96
             // 
             this.spreadsheetCommandBarButtonItem96.CommandName = "FunctionsInsertAverage";
-            this.spreadsheetCommandBarButtonItem96.Id = -1;
             this.spreadsheetCommandBarButtonItem96.Name = "spreadsheetCommandBarButtonItem96";
             // 
             // spreadsheetCommandBarButtonItem97
             // 
             this.spreadsheetCommandBarButtonItem97.CommandName = "FunctionsInsertCountNumbers";
-            this.spreadsheetCommandBarButtonItem97.Id = -1;
             this.spreadsheetCommandBarButtonItem97.Name = "spreadsheetCommandBarButtonItem97";
             // 
             // spreadsheetCommandBarButtonItem98
             // 
             this.spreadsheetCommandBarButtonItem98.CommandName = "FunctionsInsertMax";
-            this.spreadsheetCommandBarButtonItem98.Id = -1;
             this.spreadsheetCommandBarButtonItem98.Name = "spreadsheetCommandBarButtonItem98";
             // 
             // spreadsheetCommandBarButtonItem99
             // 
             this.spreadsheetCommandBarButtonItem99.CommandName = "FunctionsInsertMin";
-            this.spreadsheetCommandBarButtonItem99.Id = -1;
             this.spreadsheetCommandBarButtonItem99.Name = "spreadsheetCommandBarButtonItem99";
             // 
             // defaultLookAndFeel1
             // 
-            this.defaultLookAndFeel1.LookAndFeel.SkinName = "Office 2016 Colorful";
+            this.defaultLookAndFeel1.LookAndFeel.SkinName = "Office 2016 Black";
             // 
             // Form1
             // 
