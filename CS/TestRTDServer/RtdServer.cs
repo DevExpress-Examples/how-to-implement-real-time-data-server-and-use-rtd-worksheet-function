@@ -4,17 +4,26 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace TestExcelRTDServer {   
+namespace TestExcelRTDServer {
     [
         Guid("B6AF4673-200B-413c-8536-1F778AC14DE1"),
         ProgId("My.Sample.RtdServer"),
         ComVisible(true)
     ]
     public class RtdServer : IRtdServer {
-        private IRTDUpdateEvent m_callback;
-        private Timer m_timer;
-        private Dictionary<int, string> m_topics;
-        private static Random random = new Random();
+        IRTDUpdateEvent m_callback;
+        Timer m_timer;
+        Dictionary<int, TopicData> m_topics;
+        Dictionary<string, CompanyData> companies;
+
+        public RtdServer() {
+            this.companies = new Dictionary<string, CompanyData>();
+            this.companies.Add("MSFT", new CompanyData("MSFT", 40, 176));
+            this.companies.Add("FB", new CompanyData("FB", 60, 210));
+            this.companies.Add("YHOO", new CompanyData("YHOO", 36, 54));
+            this.companies.Add("NOK", new CompanyData("NOK", 50, 100));
+            UpdatePrices();
+        }
 
         public int ServerStart(IRTDUpdateEvent callback) {
             m_callback = callback;
@@ -23,7 +32,7 @@ namespace TestExcelRTDServer {
             m_timer.Tick += new EventHandler(TimerEventHandler);
             m_timer.Interval = 500;
 
-            m_topics = new Dictionary<int, string>();
+            m_topics = new Dictionary<int, TopicData>();
 
             return 1;
         }
@@ -38,15 +47,16 @@ namespace TestExcelRTDServer {
         public object ConnectData(int topicId,
                                   ref Array strings,
                                   ref bool newValues) {
-            if (1 != strings.Length) {
-                return "Exactly one parameter is required";
-            }
+            if (2 != strings.Length)
+                return "Two parameters are required";
+            string symbol = strings.GetValue(0).ToString();
+            string type = strings.GetValue(1).ToString();
 
-            string value = strings.GetValue(0).ToString();
+            TopicData data = new TopicData(symbol, type);
 
-            m_topics[topicId] = value;
+            m_topics[topicId] = data;
             m_timer.Start();
-            return GetNextValue(value);
+            return GetNextValue(data);
         }
 
         public void DisconnectData(int topicId) {
@@ -75,31 +85,63 @@ namespace TestExcelRTDServer {
             return 1;
         }
 
-        private void TimerEventHandler(object sender,
+        void TimerEventHandler(object sender,
                                        EventArgs args) {
             m_timer.Stop();
+            UpdatePrices();
             m_callback.UpdateNotify();
         }
 
-        private static double GetNextValue(string value) {
-            double quote;
-            switch (value)
-            {
-                case "MSFT":
-                    quote = 40;
-                    break;
-                case "FB":
-                    quote = 60;
-                    break;
-                case "YHOO":
-                    quote = 36;
-                    break;
-                default:
-                    quote = Double.Parse(value);
-                    break;
+        object GetNextValue(TopicData data) {
+            CompanyData companyData;
+            if (companies.TryGetValue(data.Symbol, out companyData)) {
+                switch (data.Type) {
+                    case "PRICE":
+                        return companyData.Price;
+                    case "CHANGE":
+                        return companyData.Change;
+                    case "SHARES":
+                        return companyData.Shares;
+                }
             }
-            return quote + (random.NextDouble() * 10.0 - 5.0);
+            return "#Invalid";
         }
+
+        void UpdatePrices() {
+            foreach (CompanyData companyData in companies.Values)
+                companyData.UpdatePrice();
+        }
+    }
+}
+
+public class TopicData {
+    public TopicData(string symbol, string type) {
+        Symbol = symbol;
+        Type = type;
+    }
+
+    public string Symbol { get; }
+    public string Type { get; }
+}
+
+public class CompanyData {
+    static Random random = new Random();
+
+    public CompanyData(string symbol, double quote, int shares) {
+        this.Symbol = symbol;
+        this.Quote = quote;
+        this.Shares = shares;
+    }
+
+    double Quote { get; }
+    public string Symbol { get; }
+    public int Shares { get; }
+    public double Price { get; private set; }
+    public double Change { get; private set; }
+
+    public void UpdatePrice() {
+        this.Price = Quote + (random.NextDouble() * 10.0 - 5.0);
+        this.Change = (this.Price - this.Quote) / this.Quote;
     }
 }
 
@@ -112,9 +154,9 @@ namespace Microsoft.Office.Interop.Excel {
     public interface IRTDUpdateEvent {
         void UpdateNotify();
 
-//        int HeartbeatInterval { get; set; }
+        //        int HeartbeatInterval { get; set; }
 
-//        void Disconnect();
+        //        void Disconnect();
     }
     [Guid("EC0E6191-DB51-11D3-8F3E-00C04F3651B8")]
     [InterfaceType(ComInterfaceType.InterfaceIsDual)]
