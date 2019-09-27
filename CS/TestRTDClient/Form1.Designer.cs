@@ -971,7 +971,7 @@
             this.barbButtonRefreshData,
             this.barButtonRestartServers});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 242;
+            this.ribbonControl1.MaxItemId = 244;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.chartToolsRibbonPageCategory1});
@@ -988,7 +988,7 @@
             this.repositoryItemRadioGroup1,
             this.repositoryItemSpinEdit1});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
-            this.ribbonControl1.Size = new System.Drawing.Size(784, 155);
+            this.ribbonControl1.Size = new System.Drawing.Size(784, 157);
             // 
             // spreadsheetCommandBarButtonItem1
             // 
@@ -3498,7 +3498,7 @@
             this.spreadsheetFormulaBarControl1.Location = new System.Drawing.Point(0, 0);
             this.spreadsheetFormulaBarControl1.MinimumSize = new System.Drawing.Size(0, 20);
             this.spreadsheetFormulaBarControl1.Name = "spreadsheetFormulaBarControl1";
-            this.spreadsheetFormulaBarControl1.Size = new System.Drawing.Size(627, 24);
+            this.spreadsheetFormulaBarControl1.Size = new System.Drawing.Size(629, 24);
             this.spreadsheetFormulaBarControl1.SpreadsheetControl = this.spreadsheetControl1;
             this.spreadsheetFormulaBarControl1.TabIndex = 0;
             // 
@@ -3518,7 +3518,7 @@
             // splitContainerControl1
             // 
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitContainerControl1.Location = new System.Drawing.Point(0, 155);
+            this.splitContainerControl1.Location = new System.Drawing.Point(0, 157);
             this.splitContainerControl1.MinimumSize = new System.Drawing.Size(0, 24);
             this.splitContainerControl1.Name = "splitContainerControl1";
             this.splitContainerControl1.Panel1.Controls.Add(this.spreadsheetNameBoxControl1);
@@ -3530,10 +3530,10 @@
             // splitterControl1
             // 
             this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitterControl1.Location = new System.Drawing.Point(0, 179);
+            this.splitterControl1.Location = new System.Drawing.Point(0, 181);
             this.splitterControl1.MinSize = 20;
             this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(784, 12);
+            this.splitterControl1.Size = new System.Drawing.Size(784, 10);
             this.splitterControl1.TabIndex = 1;
             this.splitterControl1.TabStop = false;
             // 
@@ -3763,7 +3763,7 @@
             // 
             // defaultLookAndFeel1
             // 
-            this.defaultLookAndFeel1.LookAndFeel.SkinName = "Office 2016 Black";
+            this.defaultLookAndFeel1.LookAndFeel.SkinName = "Office 2019 Black";
             // 
             // Form1
             // 
