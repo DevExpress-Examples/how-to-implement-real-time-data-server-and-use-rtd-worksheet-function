@@ -52,7 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.BonusSkins.v24.2, Version=24.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.BonusSkins.v24.2, Version=24.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Charts.v24.2.Core" />
@@ -79,7 +79,7 @@
     <Reference Include="DevExpress.XtraNavBar.v24.2" />
     <Reference Include="DevExpress.XtraPrinting.v24.2" />
     <Reference Include="DevExpress.XtraRichEdit.v24.2" />
-    <Reference Include="DevExpress.XtraSpreadsheet.v24.2, Version=24.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraSpreadsheet.v24.2, Version=24.2.13.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraTreeList.v24.2" />
